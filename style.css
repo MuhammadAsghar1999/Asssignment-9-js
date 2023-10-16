@@ -1,0 +1,30 @@
+/* Stop watch */
+body {
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+#stopwatch {
+    font-size: 36px;
+}
+
+button {
+    font-size: 18px;
+}
+
+/* Timmer */
+
+body {
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+#countdown {
+    font-size: 36px;
+     
+}
+
+button {
+    font-size: 18px;
+    
+}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopwatch and Timmer</title>
+    <link rel="stylesheet" href="style.css">
+    
+<body>
+<html>
+
+    
+</head>
+<body>
+    
+    <div id="stopwatch">0:00:00</div>
+    <button id="startStopButton" onclick="startStop()">Start</button>
+    <button id="resetButton" onclick="reset()">Reset</button>
+
+    <script>
+        let isRunning = false;
+        let timerInterval;
+        let milliseconds = 0, seconds = 0, minutes = 0;
+
+        function startStop() {
+            if (isRunning) {
+                clearInterval(timerInterval);
+                document.getElementById("startStopButton").textContent = "Start";
+            } else {
+                timerInterval = setInterval(updateStopwatch, 10);
+                document.getElementById("startStopButton").textContent = "Stop";
+            }
+            isRunning = !isRunning;
+        }
+
+        function updateStopwatch() {
+            milliseconds += 10;
+            if (milliseconds === 1000) {
+                milliseconds = 0;
+                seconds++;
+                if (seconds === 60) {
+                    seconds = 0;
+                    minutes++;
+                }
+            }
+            document.getElementById("stopwatch").textContent = minutes + ":" + (seconds < 10 ? "0" : "") + seconds + ":" + (milliseconds < 100 ? "0" : "") + milliseconds;
+        }
+
+        function reset() {
+            clearInterval(timerInterval);
+            isRunning = false;
+            milliseconds = seconds = minutes = 0;
+            document.getElementById("stopwatch").textContent = "0:00:00";
+            document.getElementById("startStopButton").textContent = "Start";
+        }
+    </script>
+<!-- Timmer -->
+<div id="countdown">0:00:00</div>
+<button id="startButton" onclick="startCountdown(5)">Start Countdown</button>
+<button id="resetButton" onclick="resetCountdown()">Reset</button>
+
+<script>
+    let countdownInterval;
+    let countdownSeconds = 0;
+
+    function startCountdown(minutes) {
+        if (countdownInterval) {
+            return;
+        }
+
+        countdownSeconds = minutes * 60;
+        updateCountdownDisplay();
+
+        countdownInterval = setInterval(function() {
+            countdownSeconds--;
+            if (countdownSeconds <= 0) {
+                clearInterval(countdownInterval);
+                countdownInterval = null;
+                document.getElementById("startButton").textContent = "Start Countdown";
+            }
+            updateCountdownDisplay();
+        }, 1000);
+
+        document.getElementById("startButton").textContent = "Counting down...";
+    }
+
+    function updateCountdownDisplay() {
+        const minutes = Math.floor(countdownSeconds / 60);
+        const seconds = countdownSeconds % 60;
+        document.getElementById("countdown").textContent = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+    }
+
+    function resetCountdown() {
+        clearInterval(countdownInterval);
+        countdownInterval = null;
+        countdownSeconds = 0;
+        document.getElementById("countdown").textContent = "0:00:00";
+        document.getElementById("startButton").textContent = "Start Countdown";
+    }
+</script>
+</body>
+</html>
